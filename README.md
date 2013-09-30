@@ -1,0 +1,2 @@
+# foodinventory
+### a Sails application
