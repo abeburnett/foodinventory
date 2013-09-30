@@ -1,2 +1,2 @@
-# foodinventory
-### a Sails application
+### foodinventory
+#### A simple Sails.js + Angular.js tutorial project. From the blog of [Ryan Lanciaux](http://http://ryanlanciaux.github.io/blog/2013/06/04/learning-angularjs/ "The blog of Ryan Lanciaux").
