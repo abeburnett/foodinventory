@@ -1,0 +1,40 @@
+*, *:before, *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+ }
+
+#container {
+	position: relative;
+	margin: 40px;
+	border: dashed 2px orange;
+	padding: 20px;
+}
+
+.block {
+	display: table-cell;
+	vertical-align: middle;
+	height: 8px;
+	line-height: 8px;
+}
+
+.block label {
+	display: inline-block;
+	text-align: right;
+	margin-right: 5px;
+	vertical-align: baseline;
+}
+
+.block input {
+	position: relative;
+	margin-top: 10px;
+	vertical-align: baseline
+}
+
+
+#content table {
+}
+
+div#footer {
+	float: right;
+	clear: all;
+	position: relative;
+}

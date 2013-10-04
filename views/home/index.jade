@@ -1,0 +1,121 @@
+extends layout
+
+block content
+
+	#container
+
+		h1#header	 Food Inventory
+
+		.block
+			label(for="filter")
+				| filter:
+			input(type="text", name="filter", ng-model="filter")
+
+		#content(ng-controller="FoodController")
+			table
+				thead
+					tr.row
+						th
+							a(ng-click="changeSort('name')") Name
+						th
+							a(ng-click="changeSort('type')") Type
+						th
+							a(ng-click="changeSort('expiration')") Expiration
+						th
+							a(ng-click="changeSort('quantity')") Quantity
+						th
+							a(ng-click="changeSort('percentRemaining')") Percent Remaining
+				tbody
+					tr.row(ng-repeat='f in food | filter:filter | orderBy:sort:reverse')
+						td {{f.name}}
+						td {{f.type}}
+						td {{f.expiration}}
+						td {{f.quantity}}
+						td.progress
+							.bar(style="width: {{f.percentRemaining}}%")
+			button(ng-click="toggleForm()", ng-hide="isFormActive") Add One
+			button(ng-click="toggleForm()", ng-show="isFormActive") Hide Form
+			form(ng-show="isFormActive")
+				hr
+				.block
+					label(for="name") Name:
+					input(name="name", ng-model="editableFood.name")
+				br
+
+				.block
+					label(for="type") Type:
+					input(name="type", ng-model="editableFood.type")
+				br
+
+				.block
+					label(for="expiration") Expiration:
+					input(name="expiration", ng-model="editableFood.expiration")
+				br
+
+				.block
+					label(for="quantity") Quantity:
+					input(name="quantity", ng-model="editableFood.quantity")
+				br
+
+				.block
+					label(for="percentRemaining") Percent Remaining:
+					input(name="percentRemaining", ng-model="editableFood.percentRemaining")
+				br
+
+				.span4.text-right
+					.row
+						button(ng-click="toggleForm()") Cancel
+						button(ng-click="addFood()") Add
+
+
+
+		div#footer
+			a(target="_blank", href="http://sailsjs.com", class="copyright")
+				| Built with Sails.js
+
+
+		script(type='text/javascript').
+
+			var foodApp = angular.module('foodApp', ['ngResource']);
+
+			foodApp.factory('Food', ['$resource', function($resource){return $resource('/food/:id', {id: '@id'});
+				}]);
+
+			function FoodController($scope, Food) {
+
+				$scope.food = Food.query();
+
+				$scope.isFormActive = false;
+
+				$scope.toggleForm = function(){
+					if ($scope.isFormActive){
+						$scope.isFormActive = false;
+						return;
+					}
+
+					$scope.isFormActive = true;
+					$scope.editableFood = new Food();
+				};
+
+				$scope.addFood = function(){
+					$scope.editableFood.$save();
+					$scope.food.push($scope.editableFood);
+					$scope.toggleForm();
+				};
+
+				$scope.sort = "name";
+				$scope.reverse = false;
+
+				$scope.changeSort = function(value){
+					if ($scope.sort == value){
+						$scope.reverse = !$scope.reverse;
+						return;
+					}
+
+					$scope.sort = value;
+					$scope.reverse = false;
+
+				}
+			};
+
+
