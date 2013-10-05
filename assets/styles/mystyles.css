@@ -5,7 +5,7 @@
 #container {
 	position: relative;
 	margin: 40px;
-	border: dashed 2px orange;
+	border: dashed 2px #0088cc;
 	padding: 20px;
 }
 
